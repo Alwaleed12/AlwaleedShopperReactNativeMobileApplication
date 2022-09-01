@@ -1,8 +1,11 @@
 import React from 'react';
 import {View, Text, Pressable, SafeAreaView} from 'react-native';
 import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
+
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
