@@ -11,7 +11,7 @@ const TabNavigator = props => {
     <Tab.Navigator
         screenOptions={{
             tabBarActiveTintColor: '#f15454',
-            tabBarActiveTintColor: {
+            tabBarLabelStyle: {
                 flex: 1,
                 fontSize: 15,
                 alignItems: 'center',
@@ -20,10 +20,10 @@ const TabNavigator = props => {
             },
             tabBarStyle: {display: 'flex'},
             tabBarIconStyle: {display: 'none'},
-    }}
+        }}
     >
-        <Tab.Screen name={'Lists'} componenet={ListsScreen} />
-        <Tab.Screen name={'Items'} componenet={ItemsScreen} />
+        <Tab.Screen name={'Lists'} component={ListsScreen}/>
+        <Tab.Screen name={'Items'} component={ItemsScreen}/>
     </Tab.Navigator>
   );
 };
