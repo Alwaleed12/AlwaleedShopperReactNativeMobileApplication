@@ -33,7 +33,7 @@ module.exports = {
 
 
     // declare function that will insert a row of data into the lists table
-    addList: async function(name, store, date) {
+    addList: async function (name, store, date) {
         // declare a transaction that will execute an SQL statement
         (await shopperDB).transaction(txn => {
             // execute the SQL
