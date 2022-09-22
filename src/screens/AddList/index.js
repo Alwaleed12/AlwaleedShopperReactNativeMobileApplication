@@ -32,8 +32,8 @@ const AddList = props => {
     } catch (error){
         console.log('Error adding list ' + error);
     }
-    alert (name + ' Added!');
 
+    alert (name + ' Added!');
     navigation.navigate('Start Shopping!');
 }
 
