@@ -29,7 +29,7 @@ const ExistingListScreen = props => {
             return;
         }
         if (!date){
-            alert('Please enter a sdate in format YYYY-MM-DD.');
+            alert('Please enter a date in format YYYY-MM-DD.');
             return;
         }
 
