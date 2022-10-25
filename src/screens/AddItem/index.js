@@ -28,7 +28,7 @@ const AddItemScreen = props => {
         }
 
         try {
-            database.addList(name, price, quantity);
+            database.addItem(name, price, quantity);
         } catch (error){
             console.log('Error adding item ' + error);
         }

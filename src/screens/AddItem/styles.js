@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     color: 'black',
     borderColor: 'lightgrey',
   },
-  qunatitiy: {
+  quantity: {
     fontSize: 16,
     borderBottomWidth: 1.0,
     color: 'black',
