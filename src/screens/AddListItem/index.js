@@ -51,33 +51,30 @@ const AddListItemsScreen = props => {
               }
               // assign results array to item state variable
               setItems(results);
-              /* [
-              //    {
-              //      id: 1
-                      name: Milk
-                      price: 2.99
-                      quantity: 1
-                      list_id: 2
-              //    }
-              // ] */
-              /* [
-              //    {
-              //      id: 2
-                      name: Eggs
-                      price: 5.99
-                      quantity: 2
-                      list_id: 2
-              //    }
-              // ] */
-              /* [
-              //    {
-              //      id: 3
-                      name: Bread
-                      price: 1.89
-                      quantity: 3
-                      list_id: 2
-              //    }
-              // ] */
+              /* This is what the items state variable looks like in the Add List Item screen
+              [
+                  {
+                    id: 1,
+                      name: Milk,
+                      price: 2.99,
+                      quantity: 1,
+                      list_id: 2,
+                  },
+                  {
+                    id: 2,
+                      name: Eggs,
+                      price: 5.99,
+                      quantity: 2,
+                      list_id: 2,
+                 }
+                  {
+                    id: 3,
+                      name: Bread,
+                      price: 1.89,
+                      quantity: 3,
+                      list_id: 2,
+                  },
+               ] */
             } else {
               // if no rows of data were returned,
               // set items state variable to an empty array
