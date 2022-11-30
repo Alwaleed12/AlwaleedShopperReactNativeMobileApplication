@@ -8,6 +8,7 @@ import { openDatabase } from "react-native-sqlite-storage";
 // use the hook to create database
 const shopperDB = openDatabase ({name: 'Shopper.db'});
 const listsTableName = 'lists';
+const listItemsTableName = 'list_Items';
 
 const ExistingListScreen = props => {
 
@@ -70,6 +71,18 @@ const ExistingListScreen = props => {
                             },
                             error => {
                                 console.log('Error on deleting list' + error.message);
+                            }
+                        );
+                    });
+                    shopperDB.transaction(txn => {
+                        txn.executeSql(
+                            `DELETE FROM ${listItemsTableName} WHERE list_id = ${post.id}`,
+                            [],
+                            () => {
+                                console.log('list item deleted succesfully.');
+                            },
+                            error => {
+                                console.log('Error on deleting list item' + error.message);
                             }
                         );
                     });
