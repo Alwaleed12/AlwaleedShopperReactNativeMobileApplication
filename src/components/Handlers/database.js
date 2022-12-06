@@ -1,17 +1,17 @@
 // import openDatabase hook
 import { openDatabase } from "react-native-sqlite-storage";
 
-// use the hook to create database
-const shopperDB = openDatabase ({name: 'Shopper.db'});
+// use hook to create database
+const shopperDB = openDatabase({name: 'Shopper.db'});
 const listsTableName = 'lists';
 const itemsTableName = 'items';
-const listItemsTableName = 'list_Items';
-
+const listItemsTableName = 'list_items';
+const usersTableName = 'users';
 
 module.exports = {
-    // declare funstion that will create the lists table
-    createListsTable: async function() {
-        // declare a transcation that will execute a SQL statement
+    // declare function that will create the lists table
+    createListsTable: async function () {
+        // declare a transaction that will execute a SQL statement
         (await shopperDB).transaction(txn => {
             // execute the SQL
             txn.executeSql(
@@ -25,7 +25,7 @@ module.exports = {
                 [],
                 // callback function to handle results of SQL query
                 () => {
-                    console.log('Lists table created successfully');
+                    console.log('Lists table created sucessfully');
                 },
                 error => {
                     console.log('Error creating lists table ' + error.message);
@@ -34,19 +34,18 @@ module.exports = {
         });
     },
 
-
-    // declare function that will insert a row of data into the lists table
+    // declare functions that will insert a row into the lists table
     addList: async function (name, store, date) {
         // declare a transaction that will execute an SQL statement
         (await shopperDB).transaction(txn => {
             // execute the SQL
             txn.executeSql(
                 `INSERT INTO ${listsTableName} (name, store, date) VALUES ("${name}", "${store}", "${date}")`,
-                // arguments passed when using SQL prepared statements
+                // argument passed when using SQL prepared statements
                 [],
                 // callback function to handle results of SQL query
                 () => {
-                    console.log(name + " added successfully");
+                    console.log(name + " added sucessfully");
                 },
                 error => {
                     console.log('Error adding list ' + error.message);
@@ -55,9 +54,10 @@ module.exports = {
         });
     },
 
-    // declare funstion that will create the items table
-    createItemsTable: async function() {
-        // declare a transcation that will execute a SQL statement
+
+    // declare function that will create the item table
+    createItemsTable: async function () {
+        // declare a transaction that will execute a SQL statement
         (await shopperDB).transaction(txn => {
             // execute the SQL
             txn.executeSql(
@@ -71,28 +71,27 @@ module.exports = {
                 [],
                 // callback function to handle results of SQL query
                 () => {
-                    console.log('Items table created successfully');
+                    console.log('Items table created sucessfully');
                 },
                 error => {
-                    console.log('Error creating items table ' + error.message);
+                    console.log('Error creating itmes table ' + error.message);
                 },
             );
         });
     },
 
-
-    // declare function that will insert a row of data into the items table
+    // declare functions that will insert a row into the lists table
     addItem: async function (name, price, quantity) {
         // declare a transaction that will execute an SQL statement
         (await shopperDB).transaction(txn => {
             // execute the SQL
             txn.executeSql(
                 `INSERT INTO ${itemsTableName} (name, price, quantity) VALUES ("${name}", ${price}, ${quantity})`,
-                // arguments passed when using SQL prepared statements
+                // argument passed when using SQL prepared statements
                 [],
                 // callback function to handle results of SQL query
                 () => {
-                    console.log(name + " added successfully");
+                    console.log(name + " added sucessfully");
                 },
                 error => {
                     console.log('Error adding item ' + error.message);
@@ -101,45 +100,89 @@ module.exports = {
         });
     },
 
-        // declare funstion that will create the list items table
-        createListItemsTable: async function() {
-            // declare a transcation that will execute a SQL statement
-            (await shopperDB).transaction(txn => {
-                // execute the SQL
-                txn.executeSql(
-                    `CREATE TABLE IF NOT EXISTS ${listItemsTableName}(
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        list_id INTEGER,
-                        item_id INTEGER
-                    );`,
-                    // arguments needed when using an SQL prepared statement
-                    [],
-                    // callback function to handle results of SQL query
-                    () => {
-                        console.log('List items table created successfully');
-                    },
-                    error => {
-                        console.log('Error creating list items table ' + error.message);
-                    },
-                );
-            });
-        },
+     // declare function that will create the lists table
+     createListItemsTable: async function () {
+        // declare a transaction that will execute a SQL statement
+        (await shopperDB).transaction(txn => {
+            // execute the SQL
+            txn.executeSql(
+                `CREATE TABLE IF NOT EXISTS ${listItemsTableName}(
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    list_id INTEGER,
+                    item_id INTEGER
+                );`,
+                // arguments needed when using an SQL prepared statement
+                [],
+                // callback function to handle results of SQL query
+                () => {
+                    console.log('List items table created sucessfully');
+                },
+                error => {
+                    console.log('Error creating list items table ' + error.message);
+                },
+            );
+        });
+    },
 
-        // declare function that will insert a row of data into the list items table
+    // declare functions that will insert a row into the list items table
     addListItem: async function (list_id, item_id) {
         // declare a transaction that will execute an SQL statement
         (await shopperDB).transaction(txn => {
             // execute the SQL
             txn.executeSql(
                 `INSERT INTO ${listItemsTableName} (list_id, item_id) VALUES (${list_id}, ${item_id})`,
-                // arguments passed when using SQL prepared statements
+                // argument passed when using SQL prepared statements
                 [],
                 // callback function to handle results of SQL query
                 () => {
-                    console.log("List item added successfully");
+                    console.log("List Item added sucessfully");
                 },
                 error => {
-                    console.log('Error adding item ' + error.message);
+                    console.log('Error adding list items' + error.message);
+                },
+            );
+        });
+    },
+
+    // declare function that will create the users table
+    createUsersTable: async function () {
+        // declare a transaction that will execute a SQL statement
+        (await shopperDB).transaction(txn => {
+            // execute the SQL
+            txn.executeSql(
+                `CREATE TABLE IF NOT EXISTS ${usersTableName}(
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username TEXT,
+                    password TEXT
+                );`,
+                // arguments needed when using an SQL prepared statement
+                [],
+                // callback function to handle results of SQL query
+                () => {
+                    console.log('Users table created sucessfully');
+                },
+                error => {
+                    console.log('Error creating users table ' + error.message);
+                },
+            );
+        });
+    },
+
+    // declare functions that will insert a row into the users table
+    addUsers: async function (username, password) {
+        // declare a transaction that will execute an SQL statement
+        (await shopperDB).transaction(txn => {
+            // execute the SQL
+            txn.executeSql(
+                `INSERT INTO ${usersTableName} (username, password) VALUES ("${username}", "${password}")`,
+                // argument passed when using SQL prepared statements
+                [],
+                // callback function to handle results of SQL query
+                () => {
+                    console.log(username + " " + password + " added sucessfully");
+                },
+                error => {
+                    console.log('Error adding user ' + error.message);
                 },
             );
         });

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, Pressable, Alert } from 'react-native';
-import styles from './styles';
+import { Text, TextInput, View, Pressable, Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import styles from './styles';
 // import openDatabase hook
 import { openDatabase } from "react-native-sqlite-storage";
 
-// use the hook to create database
-const shopperDB = openDatabase ({name: 'Shopper.db'});
+// use hook to create database
+const shopperDB = openDatabase({name: 'Shopper.db'});
 const listsTableName = 'lists';
-const listItemsTableName = 'list_Items';
+const listItemsTableName = 'list_items';
 
 const ExistingListScreen = props => {
 
@@ -22,15 +22,15 @@ const ExistingListScreen = props => {
 
     const onListUpdate = () => {
         if (!name){
-            alert('Please enter a shopping list name.');
+            alert('Please enter a shopping list name.')
             return;
         }
         if (!store){
-            alert('Please enter a store.');
+            alert('Please enter a store.')
             return;
         }
         if (!date){
-            alert('Please enter a date in format YYYY-MM-DD.');
+            alert('Please enter a date in format YYYY-MM-DD.')
             return;
         }
 
@@ -39,10 +39,10 @@ const ExistingListScreen = props => {
                 `UPDATE ${listsTableName} SET name = '${name}', store = '${store}', date = '${date}' WHERE id = ${post.id}`,
                 [],
                 () => {
-                    console.log(`${name} updated successfully`);
+                    console.log(`${name} updated sucessfully`);
                 },
                 error => {
-                    console.log('Error on updating list' + error.message);
+                    console.log('Error on updating list' + error.messgae);
                 }
             );
         });
@@ -52,57 +52,57 @@ const ExistingListScreen = props => {
     }
 
     const onListDelete = () => {
-      return Alert.alert(
-        // title
-        'Confirm',
-        // message
-        'Are you sure you want to delete this list?',
-        // buttons
-        [
-            {
-                text: 'Yes',
-                onPress: () => {
-                    shopperDB.transaction(txn => {
-                        txn.executeSql(
-                            `DELETE FROM ${listsTableName} WHERE id = ${post.id}`,
-                            [],
-                            () => {
-                                console.log(`${name} deleted successfully`);
-                            },
-                            error => {
-                                console.log('Error on deleting list' + error.message);
-                            }
-                        );
-                    });
-                    shopperDB.transaction(txn => {
-                        txn.executeSql(
-                            `DELETE FROM ${listItemsTableName} WHERE list_id = ${post.id}`,
-                            [],
-                            () => {
-                                console.log('list item deleted succesfully.');
-                            },
-                            error => {
-                                console.log('Error on deleting list item' + error.message);
-                            }
-                        );
-                    });
-                    alert('List deleted!');
-                    navigation.navigate('Start Shopping!');
+        return Alert.alert(
+            // title
+            'Confirm',
+            // message
+            'Are you sure you want to delete this list?',
+            // buttons
+            [
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        shopperDB.transaction(txn => {
+                            txn.executeSql(
+                                `DELETE FROM ${listsTableName}  WHERE id = ${post.id}`,
+                                [],
+                                () => {
+                                    console.log(`${name} deleted sucessfully`);
+                                },
+                                error => {
+                                    console.log('Error on deleting list' + error.messgae);
+                                }
+                            );
+                        });
+                        shopperDB.transaction(txn => {
+                            txn.executeSql(
+                                `DELETE FROM ${listItemsTableName}  WHERE list_id = ${post.id}`,
+                                [],
+                                () => {
+                                    console.log('List item deleted sucessfully.');
+                                },
+                                error => {
+                                    console.log('Error on deleting list item' + error.messgae);
+                                }
+                            );
+                        });
+                        alert('List Deleted');
+                        navigation.navigate('Start Shopping!');
+                    },
                 },
-            },
-            {
-                text: 'No',
-            },
-        ],
-      );
+                {
+                    text: 'No', 
+                },
+            ],
+        );
     }
 
     const onAddItem = () => {
-       navigation.navigate('Add List Item', {post: post});
+        navigation.navigate('Add List Item', {post: post});
     }
 
     const onViewList = () => {
-      navigation.navigate('View List Items', {post: post});
+        navigation.navigate('View List Items', {post: post});
     }
 
   return (
@@ -116,7 +116,7 @@ const ExistingListScreen = props => {
                 placeholder={'Enter List Name'}
                 placeholderTextColor={'grey'}
             />
-            <TextInput 
+             <TextInput 
                 value={store}
                 onChangeText={value => setStore(value)}
                 style={styles.store}
@@ -124,7 +124,7 @@ const ExistingListScreen = props => {
                 placeholder={'Enter Store'}
                 placeholderTextColor={'grey'}
             />
-            <TextInput 
+             <TextInput 
                 value={date}
                 onChangeText={value => setDate(value)}
                 style={styles.date}
@@ -134,11 +134,11 @@ const ExistingListScreen = props => {
             />
         </View>
         <View style={styles.bottomContainer}>
-            <Pressable style={styles.deleteButton} onPress={onListDelete}>
-                <Text style={styles.buttonText}>Delete</Text>
-            </Pressable>
             <Pressable style={styles.updateButton} onPress={onListUpdate}>
                 <Text style={styles.buttonText}>Update</Text>
+            </Pressable>
+            <Pressable style={styles.deleteButton} onPress={onListDelete}>
+                <Text style={styles.buttonText}>Delete</Text>
             </Pressable>
             <Pressable style={styles.addButton} onPress={onAddItem}>
                 <Text style={styles.buttonText}>Add Item</Text>
