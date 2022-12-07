@@ -18,6 +18,7 @@
  // it, he won't be able to steal the user's passwords
  import bcrypt from 'react-native-bcrypt';
  import { openDatabase } from "react-native-sqlite-storage";
+ import { LogBox } from 'react-native';
  
  const database = require('./src/components/Handlers/database.js');
  
@@ -54,16 +55,16 @@
      console.log('Failed to create users table ' + error);
    }
  
-   try {
+   /* try {
      // create the hash
      let hash = bcrypt.hashSync('Alwaleed12', salt);
-     // database.addUsers('algheraibia', hash);
+     database.addUsers('algheraibia', hash);
    } catch (error) {
      console.log('Failed to create users ' + error);
-   }
+   }*/ 
+
    return <Router />;
  };
  
- 
- 
+ LogBox.ignoreLogs(['Math.random']);
  export default App;
